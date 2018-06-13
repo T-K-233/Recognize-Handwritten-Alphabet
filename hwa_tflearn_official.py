@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 
 load_from_model = True
 
-train_file = 'data/a_z_handwritten.npy'
+train_file = 'D:\MachineLearning - local\Handwritten Dataset'
 
 num_classes = 26
 
@@ -17,7 +17,7 @@ def load_data():
     except FileNotFoundError as e:
         print('No such file called %s' % train_file)
         print('Loading from csv...')
-        raw = np.loadtxt(train_file.replace('npy', 'csv'), delimiter=',')
+        raw = np.loadtxt(".\\data\\a_z_handwritten.csv", delimiter=',')
         # raw[:, 1:785] = raw[:, 1:785] / 255
         np.save(train_file, raw)
     np.random.shuffle(raw)
@@ -32,8 +32,12 @@ X, Y = load_data()
 print(X.shape)
 print(Y.shape)
 
+plt.imshow(X[2].reshape(28,28), cmap=plt.cm.gray)
+plt.pause(5)
+plt.imshow(X[5].reshape(28,28), cmap=plt.cm.gray)
+plt.pause(5)
 plt.imshow(X[0].reshape(28,28), cmap=plt.cm.gray)
-plt.pause(20)
+plt.pause(5)
 
 testX, testY = X[-1000:], Y[-1000:]
 X, Y = X[:80000], Y[:80000]
