@@ -1,0 +1,112 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="user-scalable=no">
+  <title>Hand-witten Alphabets Recognition</title>
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+  <style>
+    body{background: #333; margin: 0}
+    canvas{background: #000}
+    button{border: 0; background: #555; color: #fff; height: 2rem; width: 140px}
+    button:hover{background: #666; cursor: pointer}
+    h1{color: #fff}
+    .container{display: inline-block; vertical-align:top}
+    .display{margin-left: 3rem}
+    .frame{position: absolute; top: 36px; left: 36px; width: 200px; height: 200px; border: 2px solid #555; pointer-events: none}
+    .update{color: #ccc}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <canvas id="canvas" width="280" height="280">Browser not supported</canvas>
+    <div class="frame"></div>
+    <div>
+      <button onClick="clear_canvas()">Clear</button><button class="pred_bt" onClick="post_img()">Predict</button>
+    </div>
+  </div>
+  <div class="container display">
+    <h1>Hand-witten Alphabets Recognition</h1>
+    <div class="update">
+      <h2 class="predict-0">A - 0.3218937829</h2>
+      <h3 class="predict-1">A - 0.3218937829</h3>
+      <h4 class="predict-2">A - 0.3218937829</h4>
+      <h5 class="predict-3">A - 0.3218937829</h5>
+      <h6 class="predict-4">A - 0.3218937829</h6>
+    </div>
+  </div>
+  <script>
+  
+  var canvas, context, pencil;
+  
+  function init () {
+    canvas = document.getElementById('canvas');
+    context = canvas.getContext('2d');
+    pencil = new tool_pencil();
+    canvas.addEventListener('mousedown', pencil.mousedown, false);
+    canvas.addEventListener('mousemove', pencil.mousemove, false);
+    canvas.addEventListener('mouseup', pencil.mouseup, false);
+    canvas.addEventListener('touchstart', pencil.touchstart, false);
+    canvas.addEventListener('touchmove', pencil.touchmove, false);
+  }
+ 
+  var clear_canvas = function(){canvas.height = canvas.height};
+  var update = function(preds){
+    for(var i=0; i<5; i++){
+      $('.predict-' + i).html(preds[i][1]+' - '+preds[i][0]);
+    }
+    $('.pred_bt').html('Predict');
+  }
+  var post_img = function(data){
+  
+    $('.pred_bt').html('Processing...');
+    $.post(
+      '{{ url_for("processor") }}', 
+      {img: document.getElementById('canvas').toDataURL()}, 
+      function(data){update(data['pred'])}
+    );
+  };
+
+  function tool_pencil () {
+        var X, Y;
+        this.enable = false;
+        get_position = function(e){
+            e.preventDefault();
+            X = e.pageX || e.touches[0].pageX;
+            Y = e.pageY || e.touches[0].pageY;
+        }
+        draw_init = function(){
+            context.lineWidth = 8;
+            context.strokeStyle = '#fff';
+            context.beginPath();
+            context.moveTo(X, Y);
+        }
+        this.mousedown = function(e){
+          get_position(e);
+          this.enable = true;
+          draw_init();
+        };
+        this.mousemove = function(e){
+          if(this.enable){
+            get_position(e);
+            context.lineTo(X, Y);
+            context.stroke();
+          }
+        };
+        this.mouseup = function(e){ this.enable = false };
+        this.touchstart = function (e) {
+            get_position(e);
+            draw_init();
+        }; 
+        this.touchmove = function (e) {
+            get_position(e);
+            context.lineTo(X, Y);
+            context.stroke();
+        };
+      }
+  
+  $(document).ready(function(){
+      init();
+  }); 
+  </script>
+</body>
+</html>
