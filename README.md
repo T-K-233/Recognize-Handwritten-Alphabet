@@ -53,14 +53,7 @@ np = np.loadtxt(train_file, delimiter=',')
 
 The images looks like this: 
 
-﻿![img](https://images-cdn.shimo.im/nZS488RjQeg6TbtK/327b086fd9a2794543cf0e31a637995.png!thumbnail)﻿ 
-
-﻿![img](https://images-cdn.shimo.im/Hj9qQvEJUTALJtvx/5352e64467dcd4a0c1694232efdae88.png!thumbnail)﻿ 
-
-﻿![img](https://images-cdn.shimo.im/nuhEa07ACFUVGjQB/a42233fc91ace4536159da7a5dbe338.png!thumbnail)﻿ 
-
-﻿![img](https://images-cdn.shimo.im/bXN7OqIOOUwYXKct/b8ddf4373817da2209f5ba793fcbe31.png!thumbnail)﻿ 
-
+﻿![img](https://images-cdn.shimo.im/ZSqYuXFvgEUAcHnc/po.png!thumbnail)﻿ 
 
 
 
