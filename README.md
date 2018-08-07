@@ -153,3 +153,10 @@ Training Step: 12500  | total loss: [1m[32m0.15304[0m[0m | time: 61.852s
 ````
 
 We achieve an accuracy of 0.9910 in the validation dataset after 4 epochs of training, the images that the neural network has not seen before. This is actually a surprising outcome with such a simple network structure. 
+
+
+
+## Reference
+
+​	Patel S. (2018). A-Z Handwritten Alphabets in .csv format. Kaggle. Retrieved from https://www.kaggle.com/sachinpatel21/az-handwritten-
+alphabets-in-csv-format

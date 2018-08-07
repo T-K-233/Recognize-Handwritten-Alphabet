@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 
 load_from_model = True
 
-train_file = 'D:\MachineLearning - local\Handwritten Dataset'
+train_file = 'D:\MachineLearning - local\Handwritten Dataset'			# please download the dataset from Kaggle
 
 num_classes = 26
 
